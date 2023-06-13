@@ -2,23 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import AddOnCard from "../components/AddOnCard";
+import { addons } from "../data";
 
-const AddOns = () => {
+const AddOns = ({ isYearly }) => {
     return (
         <Wrapper className="container">
             {" "}
             <h1 className="title">Pick add-ons</h1>
             <p className="text">Add-ons help enhance your gaming experience</p>
             <div className="cards-container">
-                <AddOnCard />
-                <AddOnCard />
-                <AddOnCard />
+                {addons.map((addition) => (
+                    <AddOnCard key={addition.id} {...addition} isYearly={isYearly} />
+                ))}
             </div>
             <div className="btns-container">
-                <Link to="/" className="link">
+                <Link to="/plan" className="link">
                     Go Back
                 </Link>
-                <button className="btn">Next Step</button>
+                <Link className="btn" to="/summary">
+                    Next Step
+                </Link>
             </div>
         </Wrapper>
     );

@@ -1,41 +1,70 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
+import { addons, billingOptions } from "../data";
 
 const Summary = () => {
+    const navigate = useNavigate();
+    const [plan, setPlan] = useState({
+        obj: billingOptions[+localStorage.getItem("choosenPlan")],
+        isYearly: +localStorage.getItem("isYearly"),
+    });
+    const addOns = addons.filter((obj) => {
+        if (+localStorage.getItem(obj.name)) return obj;
+    });
+    let total = plan.isYearly ? plan.obj.yearPrice : plan.obj.monthPrice;
     return (
         <Wrapper className="container">
-            <h1 className="title">Finishing up</h1>
-            <p className="text">Double-check everything looks OK before confirming.</p>
+            <div className="desc">
+                <h1 className="title">Finishing up</h1>
+                <p className="text">Double-check everything looks OK before confirming.</p>
+            </div>
 
             <div className="details">
                 <div className="plan-details">
                     <div className="plan-name">
-                        <p>Arcade(Yearly)</p>
+                        <p>
+                            {plan.obj.planName}({plan.isYearly ? "Yearly" : "Monthly"})
+                        </p>
                         <Link to="/plan">Change</Link>
                     </div>
-                    <div className="plan-price">$90/yr</div>
+                    <div className="plan-price">
+                        {plan.isYearly ? `$${plan.obj.yearPrice}/yr` : `${plan.obj.monthPrice}/mo`}
+                    </div>
                 </div>
                 <div className="add-ons">
-                    <div className="add-on">
-                        <p className="add-on-name">Online service</p>
-                        <p className="add-on-price">+$10/yr</p>
-                    </div>
-                    <div className="add-on">
-                        <p className="add-on-name">Online service</p>
-                        <p className="add-on-price">+$10/yr</p>
-                    </div>
+                    {addOns.map((addOn) => {
+                        total += plan.isYearly ? addOn.yearPrice : addOn.monthPrice;
+
+                        return (
+                            <div key={addOn.id} className="add-on">
+                                <p className="add-on-name">{addOn.name}</p>
+                                <p className="add-on-price">
+                                    {plan.isYearly ? `+$${addOn.yearPrice}/yr` : `${addOn.monthPrice}/mo`}
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
             <div className="add-ons-total">
-                <div className="total-name">Total (per year)</div>
-                <div className="total-price">$120/yr</div>
+                <div className="total-name">Total (per {plan.isYearly ? "Year" : "Month"})</div>
+                <div className="total-price">
+                    ${total}/{plan.isYearly ? "yr" : "mo"}
+                </div>
             </div>
             <div className="btns-container">
-                <Link to="/" className="link">
+                <Link to="/addons" className="link">
                     Go Back
                 </Link>
-                <button className="btn btn-confirm ">Confirm</button>
+                <button
+                    onClick={() => {
+                        navigate("/success");
+                    }}
+                    className="btn btn-confirm "
+                >
+                    Confirm
+                </button>
             </div>
         </Wrapper>
     );
@@ -104,6 +133,9 @@ const Wrapper = styled.div`
     .btn-confirm {
         background-color: var(--clr-blue-3);
         padding: 0.75rem 1.5rem;
+    }
+    .btn-confirm:hover {
+        background-color: var(--clr-blue-5);
     }
 `;
 

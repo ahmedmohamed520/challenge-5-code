@@ -1,12 +1,21 @@
 import React from "react";
 import { styled } from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Step = ({ id, text, url }) => {
+    const path = window.location.pathname;
+    const navigate = useNavigate();
+    const clickHandler = (e) => {
+        e.preventDefault();
+    };
     return (
-        <Wrapper to={url}>
+        <Wrapper
+            onClick={clickHandler}
+            to={url}
+            className={path === "/success" && url === "/summary" && "active"}
+        >
             <div className="num">{id}</div>
-            <div>
+            <div className="step-info">
                 <p className="step">step {id}</p>
                 <p className="title">{text}</p>
             </div>
@@ -42,6 +51,14 @@ const Wrapper = styled(NavLink)`
         font-size: 0.8125rem;
         font-weight: 500;
         letter-spacing: 1.5px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        position: relative;
+        top: -1rem;
+        .step-info {
+            display: none;
+        }
     }
 `;
 export default Step;

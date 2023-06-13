@@ -18,6 +18,8 @@
     --clr-blue-2: hsl(228, 100%, 84%);
     --clr-blue-3: hsl(243, 100%, 62%);
     --clr-blue-4: hsl(213, 96%, 18%);
+    --clr-blue-5: hsl(243, 100%, 62%, 0.5);
+    --clr-blue-6: hsl(213, 79%, 30%);
     --clr-red: hsl(354, 84%, 57%);
 
     --clr-gray-1: hsl(231, 100%, 99%);
@@ -60,15 +62,17 @@ ul {
     font-weight: 400;
     margin-bottom: 2.5rem;
     margin-top: 0.5rem;
+    line-height: 1.3;
 }
 .btns-container {
     position: absolute;
-    right: 4rem;
+    right: 2rem;
     bottom: 1.875rem;
-    left: 5rem;
+    left: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #fff;
 }
 
 .btn {
@@ -80,22 +84,52 @@ ul {
     font-size: 1rem;
     cursor: pointer;
     margin-left: auto;
+    transition: 0.2s all;
+}
+.btn:hover {
+    background-color: var(--clr-blue-6);
 }
 
 .link {
     color: var(--clr-gray-4);
+    font-weight: 500;
+    transition: 0.2s all;
+}
+.link:hover {
+    color: var(--clr-blue-3);
 }
 
 .selected {
-    background-color: var(--clr-gray-2);
+    background-color: var(--clr-gray-2) !important;
     border: 1px solid var(--clr-blue-4) !important;
 }
-.error span {
+/* .error span {
     display: inline-block !important;
-}
+} */
 .error input {
     border-color: var(--clr-red) !important;
 }
 .error input:focus {
     outline-color: var(--clr-red) !important;
+}
+.active-plan {
+    background-color: var(--clr-gray-1) !important;
+    border-color: var(--clr-blue-3) !important;
+}
+
+@media only screen and (max-width: 600px) {
+    .btns-container {
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        height: 70px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .text {
+        margin-bottom: 1.5rem;
+    }
 }

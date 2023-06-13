@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import checkIcon from "../assets/images/icon-checkmark.svg";
 
-const AddOnCard = () => {
-    const [checked, setChecked] = useState(false);
-
+const AddOnCard = ({ id, name, desc, monthPrice, yearPrice, isChecked, isYearly }) => {
+    const [checked, setChecked] = useState(Number(localStorage.getItem(name)));
+    console.log(checked);
     return (
         <Wrapper
             onClick={() => {
-                setChecked(!checked);
+                checked ? setChecked(0) : setChecked(1);
+                localStorage.setItem(name, checked ? 0 : 1);
             }}
             className={`${checked && "selected"}`}
         >
@@ -17,10 +18,10 @@ const AddOnCard = () => {
             </div>
             <div className="info">
                 <div className="">
-                    <h4>Online service</h4>
-                    <p>Access to multiplayer games</p>
+                    <h4>{name}</h4>
+                    <p>{desc}</p>
                 </div>
-                <div className="price">+$10/yr</div>
+                <div className="price">{isYearly ? `+$${yearPrice}/yr` : `+$${monthPrice}/month`}</div>
             </div>
         </Wrapper>
     );

@@ -1,38 +1,49 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import PlanCard from "../components/PlanCard";
+import { billingOptions } from "../data";
+import { useState } from "react";
 
-const Plans = () => {
-    const [yearly, setYearly] = useState(false);
+const Plans = ({ isYearly, changePlanType }) => {
+    const [choosenPlan, setChoosenPlan] = useState(Number(localStorage.getItem("choosenPlan")) || 0);
+    const choosePlanHandler = (index) => {
+        setChoosenPlan(index);
+        localStorage.setItem("choosenPlan", index);
+    };
     return (
         <Wrapper className="container">
-            <h1 className="title">Personal info</h1>
-            <p className="text">please provide your name, email address, and phone number.</p>
+            <h1 className="title">Select your plan</h1>
+            <p className="text ">You have the option of monthly or yearly billing.</p>
 
             <div className="plans-container">
-                <PlanCard />
-                <PlanCard />
-                <PlanCard />
+                {billingOptions.map((option, index) => {
+                    return (
+                        <PlanCard
+                            key={option.planName}
+                            isYearly={isYearly}
+                            {...option}
+                            index={index}
+                            choosenPlan={choosenPlan}
+                            setChoosenPlan={choosePlanHandler}
+                        />
+                    );
+                })}
             </div>
 
             <div className="select">
-                <p class={`option ${!yearly && "active"}`}>Monthly</p>
-                <div
-                    onClick={() => {
-                        setYearly(!yearly);
-                    }}
-                    className="selector"
-                >
-                    <div className={`selector-circle ${yearly ? "right" : "left"}`}></div>
+                <p className={`option ${!isYearly && "active"}`}>Monthly</p>
+                <div onClick={changePlanType} className="selector">
+                    <div className={`selector-circle ${isYearly ? "right" : "left"}`}></div>
                 </div>
-                <p class={`option ${yearly && "active"}`}>Yearly</p>
+                <p className={`option ${isYearly && "active"}`}>Yearly</p>
             </div>
             <div className="btns-container">
                 <Link to="/" className="link">
                     Go Back
                 </Link>
-                <button className="btn">Next Step</button>
+                <Link className="btn" to="/addons">
+                    Next Step
+                </Link>
             </div>
         </Wrapper>
     );
@@ -84,6 +95,12 @@ const Wrapper = styled.div`
 
     .active {
         color: var(--clr-blue-4);
+    }
+
+    @media only screen and (max-width: 600px) {
+        .plans-container {
+            grid-template-columns: 1fr;
+        }
     }
 `;
 

@@ -1,18 +1,30 @@
-import React from "react";
 import { styled } from "styled-components";
-import arcadeIcon from "../assets/images/icon-arcade.svg";
-import advancedIcon from "../assets/images/icon-advanced.svg";
-import proIcon from "../assets/images/icon-pro.svg";
-
-const PlanCard = () => {
+const PlanCard = ({
+    iconUrl,
+    planName,
+    monthPrice,
+    yearPrice,
+    isYearly,
+    index,
+    choosenPlan,
+    setChoosenPlan,
+}) => {
+    let isActive = index === choosenPlan;
     return (
-        <Wrapper>
+        <Wrapper
+            onClick={() => {
+                setChoosenPlan(index);
+            }}
+            className={`${isActive && "active-plan"}`}
+        >
             <div className="">
-                <img src={arcadeIcon} alt="arcade" />
+                <img src={iconUrl} alt={planName} />
             </div>
-            <h3 className="title">Arcade</h3>
-            <div className="price">$90/yr</div>
-            <div className="offer">2 months free</div>
+            <div className="">
+                <h3 className="title">{planName}</h3>
+                <div className="price">{isYearly ? `$${yearPrice} / yr` : `$${monthPrice} / mo`}</div>
+                {isYearly === 1 && <div className="offer">2 months free</div>}
+            </div>
         </Wrapper>
     );
 };
@@ -21,6 +33,11 @@ const Wrapper = styled.article`
     border-radius: 8px;
     padding: 1rem;
     cursor: pointer;
+    transition: 0.2s all;
+
+    &:hover {
+        border-color: var(--clr-blue-3);
+    }
     .title {
         font-size: 1rem;
         margin-top: 2.4rem;
@@ -35,6 +52,14 @@ const Wrapper = styled.article`
     .offer {
         font-size: 0.75rem;
         color: var(--clr-blue-4);
+    }
+
+    @media only screen and (max-width: 600px) {
+        display: flex;
+        gap: 1rem;
+        .title {
+            margin-top: 0;
+        }
     }
 `;
 
