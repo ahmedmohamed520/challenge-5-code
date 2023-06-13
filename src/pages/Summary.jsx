@@ -54,12 +54,12 @@ const Summary = () => {
                 </div>
             </div>
             <div className="btns-container">
-                <Link to="/addons" className="link">
+                <Link to="/challenge-5/addons" className="link">
                     Go Back
                 </Link>
                 <button
                     onClick={() => {
-                        navigate("/success");
+                        navigate("/challenge-5/success");
                     }}
                     className="btn btn-confirm "
                 >

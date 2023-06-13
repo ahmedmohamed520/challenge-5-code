@@ -12,7 +12,7 @@ const Step = ({ id, text, url }) => {
         <Wrapper
             onClick={clickHandler}
             to={url}
-            className={path === "/success" && url === "/summary" && "active"}
+            className={path === "/challenge-5/success" && url === "/challenge-5/summary" && "active"}
         >
             <div className="num">{id}</div>
             <div className="step-info">

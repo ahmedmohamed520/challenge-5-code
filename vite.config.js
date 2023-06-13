@@ -8,5 +8,6 @@ export default defineConfig({
             usePolling: true,
         },
     },
+    base: "/challenge-5",
     plugins: [react()],
 });

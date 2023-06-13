@@ -5,22 +5,22 @@ export const steps = [
     {
         id: 1,
         text: "your info",
-        url: "/",
+        url: "/challenge-5/",
     },
     {
         id: 2,
         text: "select plan",
-        url: "/plan",
+        url: "/challenge-5/plan",
     },
     {
         id: 3,
         text: "add-ons",
-        url: "/addons",
+        url: "/challenge-5/addons",
     },
     {
         id: 4,
         text: "summary",
-        url: "/summary",
+        url: "/challenge-5/summary",
     },
 ];
 export const billingOptions = [

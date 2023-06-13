@@ -19,11 +19,14 @@ function App() {
             <SideMenu />
             {/* Form */}
             <Routes>
-                <Route path="/" element={<PersonalInfo />} />
-                <Route path="/plan" element={<Plans isYearly={isYearly} changePlanType={changePlanType} />} />
-                <Route path="/addons" element={<AddOns isYearly={isYearly} />} />
-                <Route path="/summary" element={<Summary />} />
-                <Route path="/success" element={<Success />} />
+                <Route path="/challenge-5/" element={<PersonalInfo />} />
+                <Route
+                    path="/challenge-5/plan"
+                    element={<Plans isYearly={isYearly} changePlanType={changePlanType} />}
+                />
+                <Route path="/challenge-5/addons" element={<AddOns isYearly={isYearly} />} />
+                <Route path="/challenge-5/summary" element={<Summary />} />
+                <Route path="/challenge-5/success" element={<Success />} />
             </Routes>
         </Wrapper>
     );
@@ -36,7 +39,8 @@ const Wrapper = styled.div`
     margin: 50px auto;
 
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.75rem;
+    background-color: #fff;
 
     .container {
         position: relative;

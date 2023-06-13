@@ -1,15 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { styled } from "styled-components";
 import PlanCard from "../components/PlanCard";
 import { billingOptions } from "../data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Plans = ({ isYearly, changePlanType }) => {
+    const navigate = useNavigate();
     const [choosenPlan, setChoosenPlan] = useState(Number(localStorage.getItem("choosenPlan")) || 0);
     const choosePlanHandler = (index) => {
         setChoosenPlan(index);
         localStorage.setItem("choosenPlan", index);
     };
+    useEffect(() => {
+        if (!localStorage.getItem("email")) {
+            navigate("/");
+        }
+    }, []);
     return (
         <Wrapper className="container">
             <h1 className="title">Select your plan</h1>
@@ -38,10 +44,10 @@ const Plans = ({ isYearly, changePlanType }) => {
                 <p className={`option ${isYearly && "active"}`}>Yearly</p>
             </div>
             <div className="btns-container">
-                <Link to="/" className="link">
+                <Link to="/challenge-5/" className="link">
                     Go Back
                 </Link>
-                <Link className="btn" to="/addons">
+                <Link className="btn" to="/challenge-5/addons">
                     Next Step
                 </Link>
             </div>

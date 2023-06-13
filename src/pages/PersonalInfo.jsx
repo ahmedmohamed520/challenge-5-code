@@ -58,7 +58,7 @@ const PersonalInfo = () => {
             localStorage.setItem("email", email);
             localStorage.setItem("name", name);
             localStorage.setItem("phone", phone);
-            navigate("/plan");
+            navigate("/challenge-5/plan");
         }
     };
     return (
